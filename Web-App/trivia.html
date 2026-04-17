@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYU Sports Trivia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+        :root {
+            --navy: #002E5D;
+            --white: #FFFFFF;
+            --light: #f4f4f4;
+            --accent: #4a90d9;
+            --green: #28a745;
+            --red: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--navy);
+            background-image: linear-gradient(135deg, #002E5D 60%, #001a36 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .back-link:hover { color: white; }
+
+        .game-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 680px;
+            width: 100%;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--navy);
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            color: #666;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar-container {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: var(--navy);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .score-display {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            color: var(--navy);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            background: var(--light);
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--navy);
+            background: #e8edf5;
+        }
+
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: var(--green);
+            color: #155724;
+        }
+
+        .option-btn.incorrect {
+            background: #f8d7da;
+            border-color: var(--red);
+            color: #721c24;
+        }
+
+        .option-btn.reveal {
+            background: #d4edda;
+            border-color: var(--green);
+            color: #155724;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            min-height: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--navy);
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .next-btn:hover { background: #001a36; }
+        .next-btn:disabled { background: #ccc; cursor: default; }
+
+        /* Results Screen */
+        .results {
+            text-align: center;
+            display: none;
+        }
+
+        .results h2 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--navy);
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .final-score {
+            font-size: 3.5rem;
+            font-family: 'Oswald', sans-serif;
+            color: var(--navy);
+            margin: 1rem 0;
+        }
+
+        .result-message {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .play-again-btn {
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 2.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .play-again-btn:hover { background: #001a36; }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen h2 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--navy);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .start-screen p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 3rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .start-btn:hover { background: #001a36; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <a href="byusports.html" class="back-link">← Back to BYU Cougar Nation</a>
+
+    <div class="game-container">
+
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="header">
+                <h1>BYU Sports Trivia</h1>
+                <p>How well do you know the Cougars?</p>
+            </div>
+            <h2>Think you're a true Cougar fan?</h2>
+            <p>10 questions covering BYU Football, Basketball, and Athletics history. Only the most devoted fans of Cougar Nation will ace this one.</p>
+            <button class="start-btn" onclick="startGame()">Let's Go Cougs!</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="hidden">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="score-display" id="scoreDisplay">Score: 0</div>
+            <div class="question-number" id="questionNumber">Question 1 of 10</div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results" id="resultsScreen">
+            <h2>Final Score</h2>
+            <div class="final-score" id="finalScore"></div>
+            <div class="result-message" id="resultMessage"></div>
+            <button class="play-again-btn" onclick="resetGame()">Play Again</button>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What year did BYU win the National Championship in football?",
+                options: ["1980", "1984", "1989", "1993"],
+                answer: 1,
+                explanation: "BYU won the National Championship in 1984, finishing 13-0 under coach LaVell Edwards!"
+            },
+            {
+                question: "Which BYU quarterback won the Heisman Trophy in 1990?",
+                options: ["Jim McMahon", "Steve Young", "Ty Detmer", "Robbie Bosco"],
+                answer: 2,
+                explanation: "Ty Detmer won the Heisman Trophy in 1990 and set numerous NCAA passing records!"
+            },
+            {
+                question: "What is the name of BYU's football stadium?",
+                options: ["Cougar Stadium", "Provo Field", "LaVell Edwards Stadium", "BYU Memorial Stadium"],
+                answer: 2,
+                explanation: "LaVell Edwards Stadium is named after BYU's legendary coach who led the Cougars for 29 seasons!"
+            },
+            {
+                question: "Which Power 5 conference did BYU join in 2023?",
+                options: ["SEC", "Big Ten", "Pac-12", "Big 12"],
+                answer: 3,
+                explanation: "BYU joined the Big 12 Conference in 2023, their first Power 5 conference in program history!"
+            },
+            {
+                question: "What is the name of BYU's basketball arena?",
+                options: ["Cougar Center", "Marriott Center", "Smith Fieldhouse", "BYU Arena"],
+                answer: 1,
+                explanation: "The Marriott Center holds over 18,000 fans and is one of the loudest arenas in college basketball!"
+            },
+            {
+                question: "What are BYU's official school colors?",
+                options: ["Blue and Gold", "Navy and White", "Royal Blue and White", "Blue and Silver"],
+                answer: 1,
+                explanation: "BYU's official colors are Navy Blue and White, worn proudly by Cougar athletes across all sports!"
+            },
+            {
+                question: "What is the name of BYU's athletic mascot?",
+                options: ["Cosmo the Cougar", "Spike the Cougar", "Blaze", "Y the Cougar"],
+                answer: 0,
+                explanation: "Cosmo the Cougar is BYU's beloved mascot and one of the most recognizable in college sports!"
+            },
+            {
+                question: "Which legendary coach led BYU football to its National Championship?",
+                options: ["Bronco Mendenhall", "Kalani Sitake", "LaVell Edwards", "Gary Crowton"],
+                answer: 2,
+                explanation: "LaVell Edwards coached BYU for 29 seasons and is considered one of the greatest coaches in college football history!"
+            },
+            {
+                question: "What does NIL stand for in college athletics?",
+                options: ["National Intercollegiate League", "Name, Image, and Likeness", "New Incentive League", "National Independent League"],
+                answer: 1,
+                explanation: "NIL stands for Name, Image, and Likeness -- it allows college athletes to earn money from endorsements!"
+            },
+            {
+                question: "Where is BYU located?",
+                options: ["Salt Lake City, Utah", "Ogden, Utah", "Provo, Utah", "Logan, Utah"],
+                answer: 2,
+                explanation: "Brigham Young University is located in Provo, Utah, home of the Cougars!"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            answered = false;
+
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('nextBtn').disabled = true;
+
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            q.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => selectAnswer(index);
+                container.appendChild(btn);
+            });
+
+            if (currentQuestion === questions.length - 1) {
+                document.getElementById('nextBtn').textContent = 'See Results';
+            } else {
+                document.getElementById('nextBtn').textContent = 'Next Question';
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === q.answer) {
+                score++;
+                buttons[selectedIndex].classList.add('correct');
+                document.getElementById('feedback').textContent = '✓ Correct! ' + q.explanation;
+                document.getElementById('feedback').style.color = '#155724';
+            } else {
+                buttons[selectedIndex].classList.add('incorrect');
+                buttons[q.answer].classList.add('reveal');
+                document.getElementById('feedback').textContent = '✗ Not quite. ' + q.explanation;
+                document.getElementById('feedback').style.color = '#721c24';
+            }
+
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').style.display = 'block';
+
+            document.getElementById('finalScore').textContent = `${score} / ${questions.length}`;
+
+            let message = '';
+            if (score === 10) {
+                message = "Perfect score! You are the ultimate Cougar fan. Rise and Shout!";
+            } else if (score >= 8) {
+                message = "Excellent! You really know your BYU sports history. Cougar Nation is proud!";
+            } else if (score >= 6) {
+                message = "Not bad! You know your stuff, but there's still more Cougar history to learn!";
+            } else if (score >= 4) {
+                message = "Keep studying! A true Cougar fan knows their history inside and out.";
+            } else {
+                message = "Time to brush up on your BYU sports knowledge. Go Cougs!";
+            }
+
+            document.getElementById('resultMessage').textContent = message;
+            document.getElementById('progressBar').style.width = '100%';
+        }
+
+        function resetGame() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('scoreDisplay').textContent = 'Score: 0';
+            loadQuestion();
+        }
+    </script>
+
+</body>
+</html>

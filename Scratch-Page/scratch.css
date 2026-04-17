@@ -1,0 +1,212 @@
+/* ================================
+   BYU Cougar Nation - Scratch CSS
+   Created by McKay Simpson
+   ================================ */
+
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* Root variables */
+:root {
+    --byu-navy: #002E5D;
+    --byu-white: #FFFFFF;
+    --byu-light-gray: #f4f4f4;
+    --byu-dark-gray: #222222;
+    --accent: #4a90d9;
+}
+
+/* ---- Base Styles ---- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: var(--byu-light-gray);
+}
+
+h1, h2, h3 {
+    font-family: 'Oswald', sans-serif;
+    color: var(--byu-navy);
+    letter-spacing: 2px;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--byu-navy);
+}
+
+/* ---- Navbar ---- */
+.navbar {
+    background-color: var(--byu-navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-title {
+    color: var(--byu-white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+.nav-links a {
+    color: var(--byu-white);
+    margin-left: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ---- Hero Section ---- */
+.hero {
+    background-color: var(--byu-navy);
+    background-image: linear-gradient(135deg, #002E5D 60%, #001a36 100%);
+    color: var(--byu-white);
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 4rem;
+    color: var(--byu-white);
+    letter-spacing: 6px;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2rem;
+}
+
+.hero-btn {
+    background-color: var(--byu-white);
+    color: var(--byu-navy);
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.hero-btn:hover {
+    background-color: var(--accent);
+    color: var(--byu-white);
+    text-decoration: none;
+}
+
+/* ---- Sections ---- */
+.section {
+    padding: 4rem 2rem;
+    background-color: var(--byu-white);
+}
+
+.section-dark {
+    background-color: var(--byu-dark-gray);
+    color: var(--byu-white);
+}
+
+.section-dark h2,
+.section-dark h3 {
+    color: var(--byu-white);
+}
+
+.section-dark p {
+    color: rgba(255,255,255,0.8);
+}
+
+.section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ---- Images ---- */
+.section-img {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* ---- Lists ---- */
+.highlight-list {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333;
+    padding-left: 1.5rem;
+}
+
+.section-dark .highlight-list {
+    color: rgba(255,255,255,0.85);
+}
+
+.highlight-list ul {
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ---- Video ---- */
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.video-wrapper iframe {
+    max-width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* ---- Tableau ---- */
+.tableau-wrapper {
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+.tableau-note {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.5rem;
+}
+
+/* ---- Footer ---- */
+.footer {
+    background-color: var(--byu-navy);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+}

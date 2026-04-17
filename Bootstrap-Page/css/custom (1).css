@@ -1,0 +1,118 @@
+/* BYU Sports Custom CSS */
+/* This file overrides Bootstrap/Grayscale styles with BYU branding */
+
+/* BYU Color Variables */
+:root {
+    --byu-navy: #002E5D;
+    --byu-white: #FFFFFF;
+    --byu-light: #f8f9fa;
+}
+
+/* Navbar brand color */
+.navbar-brand {
+    color: var(--byu-navy) !important;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* Override the teal/green primary button color with BYU navy */
+.btn-primary {
+    background-color: var(--byu-navy) !important;
+    border-color: var(--byu-navy) !important;
+    color: var(--byu-white) !important;
+}
+
+.btn-primary:hover {
+    background-color: #001a36 !important;
+    border-color: #001a36 !important;
+}
+
+/* Override teal accent color on card borders */
+.card {
+    border-bottom: 3px solid var(--byu-navy) !important;
+}
+
+/* Override teal hr lines in contact cards */
+.card hr {
+    border-color: var(--byu-navy) !important;
+}
+
+/* Override teal icon color */
+.text-primary {
+    color: var(--byu-navy) !important;
+}
+
+/* Nav link hover color */
+.nav-link:hover {
+    color: var(--byu-navy) !important;
+}
+
+/* Active nav link color */
+.nav-link.active {
+    color: var(--byu-navy) !important;
+}
+
+/* Social icons hover */
+.social a:hover {
+    color: var(--byu-navy) !important;
+}
+
+/* About section heading */
+.about-section h2 {
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+/* Projects section heading */
+.featured-text h4,
+.project-text h4 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Footer font */
+footer {
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Resume Section */
+.resume-section {
+    padding: 6rem 0;
+}
+
+.resume-heading {
+    font-weight: 800;
+    color: var(--byu-navy);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.resume-section-title {
+    color: var(--byu-navy);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.resume-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.resume-item {
+    margin-bottom: 1rem;
+}
+
+.resume-item ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+}
+
+.resume-item ul li {
+    margin-bottom: 0.3rem;
+    color: #444;
+}
