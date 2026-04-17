@@ -210,3 +210,12 @@ a:hover {
     font-family: 'Open Sans', sans-serif;
     font-size: 0.9rem;
 }
+
+/* Bottom buttons */
+.bottom-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
