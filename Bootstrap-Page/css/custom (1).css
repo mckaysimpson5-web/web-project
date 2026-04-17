@@ -122,3 +122,10 @@ footer {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.masthead h1 {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.masthead h2 {
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
+}
